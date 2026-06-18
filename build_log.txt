@@ -1,0 +1,29 @@
+========================================
+SVM 核技巧 3D 互動展示 — 建置日誌
+========================================
+建置時間: 2026-06-18
+
+目錄結構:
+  utils/data_generator.py       - 資料生成（環狀資料集）
+  utils/svm_utils.py            - SVM 模型訓練與決策網格
+  phase1_manim_kernel_trick.py  - Manim 3D 動畫（核技巧視覺化）
+  phase2_rbf_decision_surface.py - RBF SVM 決策曲面（matplotlib）
+  phase3_streamlit_app.py       - 互動式展示（Streamlit + Plotly）
+  outputs/
+    rbf_2d_decision_boundary.png  - 二維決策邊界圖
+    rbf_3d_decision_surface.png   - 三維決策函數曲面圖
+  requirements.txt
+  README.md
+
+使用技術:
+  - Manim CE（Phase 1 動畫）
+  - scikit-learn SVC（SVM 模型）
+  - matplotlib（Phase 2 靜態圖）
+  - Streamlit + Plotly（Phase 3 互動網頁）
+
+執行指令:
+  1. manim -pql phase1_manim_kernel_trick.py SVMKernelTrick3D
+  2. python phase2_rbf_decision_surface.py
+  3. streamlit run phase3_streamlit_app.py
+
+語言: 繁體中文（zh-TW）
