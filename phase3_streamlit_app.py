@@ -155,12 +155,48 @@ def make_3d_plot(X, y, model, xx, yy, Z):
     return fig
 
 
-def main():
-    st.set_page_config(
-        page_title="SVM 核技巧 3D 互動展示",
-        layout="wide",
-    )
+def page_home():
     st.title("SVM 核技巧 3D 互動展示")
+    st.markdown("---")
+
+    col_logo, col_desc = st.columns([1, 2])
+    with col_logo:
+        st.image("SVM_核函數視覺化指南.png", width=280)
+    with col_desc:
+        st.markdown("""
+        ### 什麼是 SVM 核技巧？
+        支援向量機（SVM）是一種強大的機器學習分類演算法。
+        **核技巧（Kernel Trick）** 讓 SVM 能夠在**原始低維空間**中，
+        透過隱式的特徵映射，學習**非線性決策邊界**。
+
+        ### 教育故事
+        1. **二維困境** — 中心藍點與外圈紅點無法用直線分開
+        2. **特徵映射** — 使用 $\\phi(x, y) = (x, y, x^2 + y^2)$ 提升到 3D
+        3. **超平面** — 在 3D 空間中用水平平面分開資料
+        4. **回到 2D** — 投影回二維形成圓形決策邊界
+        5. **真實 RBF** — 真正的 RBF 核對應無限維特徵空間
+        """)
+    st.markdown("---")
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.subheader("📐 Phase 1")
+        st.markdown("**Manim 動畫**\n\n展示特徵映射 $\\phi(x, y) = (x, y, x^2 + y^2)$ 將 2D 點提升到 3D 的過程，以及超平面如何分離資料。")
+        st.code("manim -pql phase1_manim_kernel_trick.py SVMKernelTrick3D", language="bash")
+    with col2:
+        st.subheader("📊 Phase 2")
+        st.markdown("**RBF 決策曲面**\n\n使用 sklearn SVC 訓練真實 RBF 核 SVM，繪製二維決策邊界與三維決策函數曲面。")
+        st.code("python phase2_rbf_decision_surface.py", language="bash")
+        st.image("outputs/rbf_2d_decision_boundary.png", width=250)
+    with col3:
+        st.subheader("🎮 Phase 3")
+        st.markdown("**互動展示**\n\n點擊左側導覽前往「互動展示」頁面，調整 Kernel、C、Gamma 等參數，即時觀察決策邊界變化。")
+        st.markdown("---\n👉 **前往左側選單 → 互動展示**")
+
+
+def page_demo():
+    st.title("🎮 SVM 互動展示")
+    st.markdown("在左側面板調整參數，觀察決策邊界的即時變化。")
 
     with st.sidebar:
         st.header("參數設定")
@@ -215,6 +251,30 @@ def main():
         - 上方的 3D 曲面顯示的是 **決策函數** $z = f(x, y)$，而非特徵空間本身
         - 透過調整 Gamma 和 C 可以觀察到邊界從平滑到過擬合的變化
         """)
+
+
+def main():
+    st.set_page_config(
+        page_title="SVM 核技巧 3D 互動展示",
+        layout="wide",
+        initial_sidebar_state="expanded",
+    )
+
+    with st.sidebar:
+        st.markdown("# 🧠 SVM 核技巧")
+        st.markdown("---")
+        page = st.radio(
+            "導覽選單",
+            ["🏠 首頁", "🎮 互動展示"],
+            label_visibility="collapsed",
+        )
+        st.markdown("---")
+        st.caption("© 2026 SVM-Kernel Demo")
+
+    if "互動展示" in page:
+        page_demo()
+    else:
+        page_home()
 
 
 if __name__ == "__main__":
