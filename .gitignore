@@ -7,3 +7,10 @@ venv/
 *.log
 stdout.txt
 stderr.txt
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+.vercel/
+.DS_Store
+backend/build/
+backend/*.egg-info/
