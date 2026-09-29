@@ -1,52 +1,22 @@
-# SVM Kernel Trick 3D Interactive Demo
+# SVM Kernel Lab V2
 
-An educational 3‑phase demonstration of the Support Vector Machine kernel trick.
+科技感、可互動的 SVM 教學儀表板。新版獨立放在 `V2 demo`，不會覆寫原始版本。
 
-![SVM 核函數視覺化指南](SVM_核函數視覺化指南.png)
+## 啟動
 
-## Educational Story
-
-1. **2D Limitation:** Blue points in the center and red points in an outer ring cannot be separated by a straight line.
-2. **Feature Mapping:** Using `φ(x, y) = (x, y, x² + y²)`, points are lifted into 3D where they become linearly separable.
-3. **Hyperplane:** A horizontal plane separates the lifted points in the 3D feature space.
-4. **Back to 2D:** Projecting the hyperplane back gives a circular decision boundary.
-5. **Real RBF:** A true RBF SVM decision function surface is shown in Phase 2 and Phase 3.
-6. **Interactive:** Phase 3 lets students adjust `C`, `gamma`, kernel, and noise interactively.
-
-## Phase 1: Manim Kernel Trick Animation
-
-Animates the conceptual mapping `z = x² + y²`.
-
-```bash
-# Low quality preview
-manim -pql phase1_manim_kernel_trick.py SVMKernelTrick3D
-
-# High quality render
-manim -pqh phase1_manim_kernel_trick.py SVMKernelTrick3D
-```
-
-## Phase 2: Real RBF SVM Decision Surface
-
-Trains an sklearn `SVC(kernel='rbf')` and visualises both the 2D decision boundary and the 3D decision function surface.
-
-```bash
-python phase2_rbf_decision_surface.py
-```
-
-## Phase 3: Interactive Streamlit Demo
-
-A web app where students explore how kernel, C, gamma, degree, noise, and point count affect the SVM decision boundary.
-
-```bash
-streamlit run phase3_streamlit_app.py
-```
-
-## Installation
-
-```bash
+```powershell
+cd "E:\Mume_AI\NCHU HW\20260618-SVM\V2 demo"
 pip install -r requirements.txt
+streamlit run app.py
 ```
 
-## Important Mathematical Note
+## 本版可調項目
 
-The mapping `z = x² + y²` is a **teaching‑only** visualisation. A real RBF kernel corresponds to an infinite‑dimensional feature space. Phase 2 and Phase 3 show the `decision_function` surface, not the feature space itself.
+- 模型：Kernel、C、Gamma、Polynomial degree、Coef0、class weight。
+- 資料：同心圓環、交錯月牙、XOR、線性可分、樣本數、feature noise、label noise、類別比例、間距、圓環半徑與 random seed。
+- 視覺：decision heatmap、boundary、margin、support vectors、3D surface、wireframe、2D floor projection、f=0 plane、透明度、色盤、網格精度與 3D 鏡頭。
+- 操作：Reset、Random data、CSV export、Plotly 旋轉／縮放／截圖。
+
+## 數學說明
+
+3D 圖顯示的是模型的 decision function `z = f(x, y)`，不是把 RBF 特徵空間畫成三維。RBF kernel 對應高維或無限維特徵映射；`z = x² + y²` 則是用來解釋 kernel trick 的教學用顯式映射。
